@@ -8,15 +8,17 @@ function InputNButton({word, allGuessedLetters, setAllGuessedLetters}) {
   const [userInput, setUserInput] = useState("");
 
   function handleInputChange(event) {
-    setUserInput(event.target.value);
+    setUserInput(event.target.value.toLowerCase());
   }
 
-  
-  //see if letter input is in word
-  function handleInputinWord() {
-    if (word.includes(userInput)) {
-    // change _ to userInput letter
 
+  //adding userInput into allGuessedLetters
+  function handleInputinWord() {
+    //alert if user already guessed letter before
+    if (allGuessedLetters.includes(userInput)) {
+    alert('You have already guessed this letter!')
+    setUserInput('')
+    return
     }
     // insert userInput letter into allGuessedLetters []
     setAllGuessedLetters([...allGuessedLetters, userInput]);
@@ -26,7 +28,7 @@ function InputNButton({word, allGuessedLetters, setAllGuessedLetters}) {
 
   return (
     <React.Fragment>
-      <input type="text" onChange={handleInputChange} value={userInput} />
+      <input type="text" onChange={handleInputChange} value={userInput} maxLength='1' />
       <button onClick={handleInputinWord}>Guess This Letter</button>
     </React.Fragment>
   );

@@ -5,16 +5,17 @@
 import { useEffect, useState } from "react";
 
 function PuzzleWord({ word, allGuessedLetters }) {
-  const [underScoreWord, setUnderScoreWord] = useState("");
+  const [underScoreWord, setUnderScoreWord] = useState("___");
 
+  //SETTING UNDERSCORD WORD
   useEffect(() => {
     let length = word.length;
     let tempUnderscoreWord = "";
     for (let i = 1; i <= length; i++) {
       tempUnderscoreWord += "_ ";
-    };
+    }
     setUnderScoreWord(tempUnderscoreWord);
-  }, []);
+  }, [word]);
 
   //helper funct to replace underscores w/ letters
   function replaceChar(str, index, chr) {
@@ -24,26 +25,38 @@ function PuzzleWord({ word, allGuessedLetters }) {
 
   //checking to see if allGuessedLetters has changed
   useEffect(() => {
-    if (allGuessedLetters.length ){
     let lastLetter = allGuessedLetters[allGuessedLetters.length - 1];
     if (word.includes(lastLetter)) {
-        //finding all instances of letter in the word
-        let arr = [];
-        for (let i =0; i<word.length; i ++){
-            if(word[i] === lastLetter){
-                arr.push(i)
-            };
-        };
-        //replacing underscores in Underscoreword with correct letters
-        let tempUnderscoreWord = underScoreWord;
-        for (let i of arr){
+      //finding all instances of letter in the word
+      let arr = [];
+      for (let i = 0; i < word.length; i++) {
+        if (word[i] === lastLetter) {
+          arr.push(i);
+        }
+      }
+      //replacing underscores in Underscoreword with correct letters
+      let tempUnderscoreWord = underScoreWord;
+      for (let i of arr) {
         let letterIndex = i * 2;
-        tempUnderscoreWord = replaceChar(tempUnderscoreWord,letterIndex,lastLetter);
-        };   
-        setUnderScoreWord(tempUnderscoreWord)
-    };
-};
+        tempUnderscoreWord = replaceChar(
+          tempUnderscoreWord,
+          letterIndex,
+          lastLetter
+        );
+      }
+      setUnderScoreWord(tempUnderscoreWord);
+    }
   }, [allGuessedLetters]);
+
+  //ALERT FOR WINNING
+  useEffect(() => {
+    if (underScoreWord.length > 0) {
+      if (!underScoreWord.includes("_")) {
+        alert("YOU WIN!!");
+        window.location.reload();
+      };
+    };
+  }, [underScoreWord]);
 
   return (
     <div>
