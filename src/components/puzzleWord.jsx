@@ -5,10 +5,11 @@
 import { useEffect, useState } from "react";
 
 function PuzzleWord({ word, allGuessedLetters }) {
-  const [underScoreWord, setUnderScoreWord] = useState("___");
+  const [underScoreWord, setUnderScoreWord] = useState("");
+ 
 
   //SETTING UNDERSCORD WORD
-  useEffect(() => {
+  useEffect(() => { 
     let length = word.length;
     let tempUnderscoreWord = "";
     for (let i = 1; i <= length; i++) {
@@ -59,8 +60,8 @@ function PuzzleWord({ word, allGuessedLetters }) {
   }, [underScoreWord]);
 
   return (
-    <div>
-      {word}
+    <div id='underscoreDiv'>
+      
       {underScoreWord}
     </div>
   );
@@ -68,28 +69,3 @@ function PuzzleWord({ word, allGuessedLetters }) {
 
 export default PuzzleWord;
 
-// function Task({
-//   id,
-//   description,
-//   completed,
-//   key,
-//   handleDeleteTask,
-//   handleCompleteTask,
-// }) {
-//   const taskDescription = `ID: ${id}, ${description}, COMPLETED: ${
-//     completed ? "Yes" : "No"
-//   }`;
-//   const deleteTask = () => handleDeleteTask(id);
-
-//   const taskCSS = completed ? "completedtask" : "incompletetask";
-
-//   return (
-//     <li key={key} className={taskCSS}>
-//       {taskDescription}
-//       <button onClick={deleteTask}>Delete</button>
-//       <button onClick={() => handleCompleteTask(id)}>Complete</button>
-//     </li>
-//   );
-// }
-
-// export default Task;
